@@ -1,0 +1,67 @@
+---
+title: "Recommender Systems: Tinder"
+author: "Claire Meyer"
+date: "4/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Recommender System: Tinder
+
+This document explores how Tinder, a popular dating app, uses a recommender system to improve the quality of matches on its platform.
+
+### What is Tinder? 
+
+Tinder is a popular mobile dating app that presents individual user profiles to each other, and gives them the opportunity to express interest or pass. Upon expressing mutual interest, the two users match and can begin a chat. Tinder was the first broadly popular dating app for mobile, and arguably changed the landscape of 'online dating' forever. They've since expanded into platonic matches, and competitors like Bumble have expanded even further to professional networking matches. 
+
+### Scenario Design
+
+Below we apply the scenario design framework to Tinder's application. 
+
+1) Who are Tinder's target users? 
+
+Tinder's target user base is very broad - arguably any individual looking for interpersonal connection.
+
+2) What are their key goals?
+
+Those users' primary goal is, as described by the chief scientist, "social discovery" - broadening the circumference of their social circle and connecting with new people they might not have otherwise encountered. 
+
+In addition to this core goal, I think there are others inherent to the medium: ease of use, on-the-go, and security. Meeting new people in an application setting is arguably easier and safer than an in-person alternative, and users can dedicate as much time/effort as they see fit. 
+
+3) How can Tinder help them accomplish these goals?
+
+Tinder can create an interface for users to meet others with similar goals. Through the creation of visible user profiles with photos and details, as well as age-based and other filters, and the application of a recommender system, Tinder can also expedite the search. 
+
+
+### Understanding the algorithm
+
+The recommender system currently under-pinning Tinder is somewhat mysterious, likely due to the risks from competitors copying the approach. 
+
+While it's not clear if this approach is still in use (a [more recent blog post](www.vox.com/2019/2/7/18210998/tinder-algorithm-swiping-tips-dating-app-science) referenced an ELO score, and abandoning it for something more simple), the chief scientist of Tinder, Dr. Steve Liu, gave an interesting talk in 2017 on TinVec and the recommender system Tinder used that that time. 
+
+The chief scientist mentioned three approaches: collaborative filtering, content-based filtering, and something called TinVec. The first two were only touched on briefly, but we can intuit what they might entail. 
+
+Collaborative filtering is essentially the process of using other, similar users' behavior as a predictor. In Tinder's use case, this could mean prioritizing showing profiles that users with similar characteristics and filters (age, location, gender, etc.) matched with successfully.
+
+Content-based filtering tags entities (in Tinder's case users) based on content. Dr. Liu mentions Tinder's exploration of Natural Language Processing in the profile bios for content-based filtering. Again, there was limited information, but this could mean noticing positiviely associated words, e.g. 'loves pets', applying an associated tag to that user, and prioritizing showing profiles with similar tags.
+
+Finally, Dr. Liu focuses on 'TinVec', which I believe is a proprietary Tinder algorithm. It is described as similar to the Google-developed 'Word2Vec', but representing users, instead of words, as vectors embedded in a space. It vectorizes users using swipe behaviors only, and represents similar 'swipees' (swipe recipients) closer together in the embedding space. Dr. Liu shows a physical mapping, that shows how 'co-swipees' (users swiped in the same session) would be closer together. This allows Tinder to prioritize showing profiles more likely to be swiped. Dr. Liu walks through the evaluation of this model, and its accuracy is impressively strong.
+
+In many ways, TinVec sounds like an advanced form of collaborative filtering.
+
+### Recommendations to Improve 
+
+One thing I wonder about Tinder and similar applications, is the extent to which the company's incentives may not align with the users' goals. Presumably, their revenue has two streams: advertisements in-app, and paid features that purportedly improve your chances of exposure to other users that interest you. Were I setting aside Tinder's bottom-line, I would be curious to understand and optimize performance around the quality of matches made, versus pure volume. One could define quality by number of messages exchanged, for example, and target longer conversations with collaborative filtering instead of simply the act of matching. I do wonder if this could ultimately lead to users abandoning Tinder, however, with a successful relationship. Alternatively, it could increase engagement with the app, and create more opportunities in those meaningful chat exchanges to monetize through advertising. 
+
+Another recommendation might be (if they are not already) leveraging the data from the paid features. One such feature allows you to 'super like' a 'swipee' and ensure they see your profile. This seems ripe for collaborative-based filtering, and a very strong signal of match. 
+
+### Works Cited
+
+“The Machine Learning Conference: Personalized User Recommendations at Tinder.” Dr. Steven Liu, The Machine Learning Conference, 2017, mlconf.com/sessions/personalized-user-recommendations-at-tinder-the-t/. 
+
+Tiffany, Kaitlyn. “The Tinder Algorithm, Explained.” Vox, Vox, 7 Feb. 2019, www.vox.com/2019/2/7/18210998/tinder-algorithm-swiping-tips-dating-app-science. 
+
+Team, Tinder. “Powering Tinder® - The Method Behind Our Matching.” Tinder, Tinder, 17 Sept. 2020, blog.gotinder.com/powering-tinder-r-the-method-behind-our-matching/. 
